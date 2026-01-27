@@ -990,5 +990,19 @@ img {
 .kontakt-btn:hover {
   background: #b91c1c;
 }
+/* ===== FIX MOBILE OVERFLOW ===== */
+html {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+* {
+  max-width: 100%;
+}
 
 

@@ -2,20 +2,15 @@ export const dynamic = "force-dynamic"
 
 "use client"
 
-import { Suspense, useMemo, useState } from "react"
-// ... rest des codes
-
-import { useSearchParams } from "next/navigation"
+import { useEffect, useMemo, useState } from "react"
 import Link from "next/link"
 import { Header } from "../../../components/site/Header"
 
-function AnfrageFormInner() {
-  const searchParams = useSearchParams()
-  const vehicleFromUrl = searchParams.get("vehicle") || ""
-
+export default function AnfragePage() {
+  const [vehicleFromUrl, setVehicleFromUrl] = useState("")
   const [step, setStep] = useState<1 | 2>(1)
   const [loading, setLoading] = useState(false)
-  const [vehicle, setVehicle] = useState(vehicleFromUrl)
+  const [vehicle, setVehicle] = useState("")
   const [city, setCity] = useState("")
   const [fromDate, setFromDate] = useState("")
   const [toDate, setToDate] = useState("")
@@ -23,6 +18,13 @@ function AnfrageFormInner() {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const v = params.get("vehicle") || ""
+    setVehicleFromUrl(v)
+    setVehicle(v)
+  }, [])
 
   const step1Valid = useMemo(() => {
     return vehicle.trim() && city.trim() && fromDate.trim() && toDate.trim()
@@ -130,8 +132,7 @@ function AnfrageFormInner() {
                   </div>
                 </div>
               </>
-            ) : (
-              <>
+            ) : (              <>
                 <h2 style={{ fontSize: "24px", fontWeight: 700, marginBottom: "8px" }}>Schritt 2: Kontaktdaten</h2>
                 <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.65)", marginBottom: "24px" }}>Damit wir dich erreichen können.</p>
                 <div style={{ display: "grid", gap: "16px" }}>
@@ -163,10 +164,3 @@ function AnfrageFormInner() {
   )
 }
 
-export default function AnfragePage() {
-  return (
-    <Suspense fallback={<div style={{ minHeight: "100vh", background: "#07070a" }} />}>
-      <AnfrageFormInner />
-    </Suspense>
-  )
-}

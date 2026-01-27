@@ -1,6 +1,10 @@
+export const dynamic = "force-dynamic"
+
 "use client"
 
 import { Suspense, useMemo, useState } from "react"
+// ... rest des codes
+
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { Header } from "../../../components/site/Header"

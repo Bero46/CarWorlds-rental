@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic"
 
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { Header } from "../../../components/site/Header"
 
